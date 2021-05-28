@@ -1,16 +1,15 @@
 apiVersion: skaffold/v2beta12
 kind: Config
 metadata:
-  name: ecosystem
+  name: order-app-ecosystem
 build:
   local:
     concurrency: 0 #builds all artifacts in parallel
 requires:
   - path: ./customer-service
-#deploy:
-#  kubectl:
-#    manifests:
-#    - nginx-ingress/nginx.deployment.yaml
-#    - nginx-ingress/cloud-generic.yaml
-#    - nginx-ingress/ingress.yaml
-
+deploy:
+  kubectl:
+    manifests:
+    - service-mesh/order-app-api-gateway.yaml
+    - service-mesh/customer-service-virtualservice.yaml
+    - service-mesh/addons/*.yaml

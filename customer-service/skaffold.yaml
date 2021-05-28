@@ -11,4 +11,3 @@ deploy:
   kubectl:
     manifests:
     - k8/*.yaml
-    - service-mesh/*.yaml

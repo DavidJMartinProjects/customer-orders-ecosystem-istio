@@ -12,4 +12,3 @@ deploy:
     manifests:
     - service-mesh/order-app-api-gateway.yaml
     - service-mesh/customer-service-virtualservice.yaml
-    - service-mesh/addons/*.yaml

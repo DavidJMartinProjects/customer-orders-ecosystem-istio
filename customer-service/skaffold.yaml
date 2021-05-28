@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: customer-service
+build:
+  artifacts:
+    - image: customer-service
+      docker:
+        dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - k8/*.yaml

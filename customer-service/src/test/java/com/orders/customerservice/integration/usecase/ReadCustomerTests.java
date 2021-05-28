@@ -1,0 +1,76 @@
+package com.orders.customerservice.integration.usecase;
+
+
+import java.util.List;
+
+import com.app.openapi.generated.model.Customer;
+import com.orders.customerservice.integration.IntegrationTest;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
+/**
+ * @author DavidJMartin
+ */
+class ReadCustomerTests extends IntegrationTest {
+
+    // <-- Positive GET Requests Integration Tests -->
+    @Test
+    void GIVEN_existingCustomerId_WHEN_getRequestToCustomerById_THEN_ok() {
+        // given
+        final Customer customer = customerFactory.findCustomerById(CUSTOMER_ID_ONE);
+
+        // when
+        webTestClient
+            .get()
+            .uri(CUSTOMERS_API_BASE_PATH + "/" + customer.getId())
+            .exchange()
+
+            // then
+            .expectStatus()
+                .isOk()
+            .expectBody(Customer.class)
+                .isEqualTo(customer);
+    }
+
+    @Test
+    void GIVEN_expectedCustomers_WHEN_getRequestToCustomers_THEN_ok() {
+        // given
+        final List<Customer> expectedCustomers = customerFactory.buildTestCustomers(3);
+
+        // when
+        webTestClient
+            .get()
+            .uri(CUSTOMERS_API_BASE_PATH)
+            .exchange()
+
+            // then
+            .expectStatus()
+                .isOk()
+            .expectBodyList(Customer.class)
+                .hasSize(3)
+                .isEqualTo(expectedCustomers);
+    }
+
+    // <-- Negative GET Requests Integration Tests -->
+    @Test
+    void GIVEN_nonExistingId_WHEN_getRequestToCustomerById_THEN_notFound() {
+        // given
+        final long nonExistingId = 100;
+
+        // when
+        webTestClient
+            .get()
+            .uri(CUSTOMERS_API_BASE_PATH + "/" + nonExistingId)
+            .exchange()
+
+            // then
+            .expectStatus()
+                .isNotFound()
+            .expectBody()
+                .jsonPath("$.url").value(Matchers.containsString("/customers/" + nonExistingId))
+                .jsonPath("$.message").value(Matchers.containsString(nonExistingId + " not found"))
+                .jsonPath("$.errorCode").value(Matchers.equalTo("resource not found."))
+                .jsonPath("$.timestamp").isNotEmpty();
+    }
+
+}

@@ -7,3 +7,6 @@ While ($true) { curl -UseBasicParsing http://127.0.0.1/customers; Start-Sleep -S
 ````
 
 - istioctl dashboard grafana
+
+### calling example:
+- https://github.com/piomin/sample-istio-services

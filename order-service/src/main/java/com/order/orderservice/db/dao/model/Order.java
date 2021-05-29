@@ -32,9 +32,7 @@ public class Order {
     private long id;
 
     private long customerId;
-
     private String status;
-
     private String timestamp;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)

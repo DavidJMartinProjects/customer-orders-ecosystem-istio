@@ -30,7 +30,6 @@ public class OrderItem {
     private long productId;
     private int quantity;
 
-
     @ManyToOne
     private Order order;
 

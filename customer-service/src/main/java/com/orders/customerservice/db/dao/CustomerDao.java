@@ -39,36 +39,36 @@ public class CustomerDao implements DbOperation<Customer> {
     }
 
     @Override
-    public Customer findById(long id) {
-        log.info("fetching customer with id: {}.", id);
-        CustomerEntity entity = customerRepository.findById(id)
-            .orElseThrow(() -> new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, id)));
+    public Customer findById(long customerId) {
+        log.info("fetching customer with id: {}.", customerId);
+        CustomerEntity entity = customerRepository.findById(customerId)
+            .orElseThrow(() -> new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, customerId)));
         return mapper.toDto(entity);
     }
 
     @Override
-    public Customer save(Customer entity) {
-        log.info("saving customer with lastName: {}.", entity.getLastName());
-        return mapper.toDto(customerRepository.save(mapper.toEntity(entity)));
+    public Customer save(Customer customer) {
+        log.info("saving customer with lastName: {}.", customer.getLastName());
+        return mapper.toDto(customerRepository.save(mapper.toEntity(customer)));
     }
 
     @Override
-    public Customer update(Customer entity) {
-        log.info("updating customer with id: {}.", entity.getId());
-        if(customerRepository.existsById(Long.valueOf(entity.getId()))) {
-            return mapper.toDto(customerRepository.save(mapper.toEntity(entity)));
+    public Customer update(Customer customer) {
+        log.info("updating customer with id: {}.", customer.getId());
+        if(customerRepository.existsById(Long.valueOf(customer.getId()))) {
+            return mapper.toDto(customerRepository.save(mapper.toEntity(customer)));
         } else {
-            throw new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, entity.getId()));
+            throw new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, customer.getId()));
         }
     }
 
     @Override
-    public void deleteById(long id) {
-        log.info("deleting customer with id: {}.", id);
-        if(customerRepository.existsById(id)) {
-            customerRepository.deleteById(id);
+    public void deleteById(long customerId) {
+        log.info("deleting customer with id: {}.", customerId);
+        if(customerRepository.existsById(customerId)) {
+            customerRepository.deleteById(customerId);
         } else {
-            throw new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, id));
+            throw new CustomerServiceException(String.format(CUSTOMER_ID_DOES_NOT_EXIST, customerId));
         }
     }
 

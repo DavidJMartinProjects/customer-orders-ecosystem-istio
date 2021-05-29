@@ -2,7 +2,9 @@ package com.order.orderservice.db.dao.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +37,7 @@ public class CustomerOrder {
 
     private String timestamp;
 
-    @OneToMany(mappedBy="customerOrder")
+    @OneToMany(cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
     private Set<OrderItem> orderItems;
 
 }

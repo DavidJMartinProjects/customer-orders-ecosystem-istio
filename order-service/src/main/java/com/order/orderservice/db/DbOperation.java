@@ -52,4 +52,9 @@ public interface DbOperation<T> {
      */
     void deleteById(long id);
 
+    /**
+     * Delete all records
+     */
+    void deleteAll();
+
 }

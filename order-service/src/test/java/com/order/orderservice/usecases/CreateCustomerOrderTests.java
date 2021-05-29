@@ -33,12 +33,13 @@ public class CreateCustomerOrderTests extends IntegrationTest {
                 .body(Mono.just(customerOrder), CustomerOrder.class)
             .exchange()
 
-        //then
+            //then
             .expectStatus()
                 .isCreated()
             .expectBody()
                 .jsonPath("$.id").isNotEmpty()
-                .jsonPath("$.orderItems").value(Matchers.equalToObject(mapToJson(customerOrder.getOrderItems())));
+                .jsonPath("$.orderItems").isNotEmpty()
+                .jsonPath("$.status").value(Matchers.equalTo("order received."));
 
     }
 

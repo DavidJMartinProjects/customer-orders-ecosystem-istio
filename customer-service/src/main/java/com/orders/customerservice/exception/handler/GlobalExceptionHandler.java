@@ -1,4 +1,4 @@
-package com.orders.customerservice.controller.advice;
+package com.orders.customerservice.exception.handler;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import com.orders.customerservice.exception.ResourceNotFoundException;
-import com.orders.customerservice.exception.ValidationFailureException;
+import com.orders.customerservice.exception.CustomerServiceException;
+import com.orders.customerservice.exception.RequestValidationException;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @ControllerAdvice
 @Slf4j
-public class CustomerAdvice extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -40,18 +40,18 @@ public class CustomerAdvice extends ResponseEntityExceptionHandler {
         return buildErrorData("request validation failure.", errors.toString(), request);
     }
 
-    @ExceptionHandler(ValidationFailureException.class)
+    @ExceptionHandler(RequestValidationException.class)
     @ResponseStatus(code = HttpStatus.CONFLICT)
     @ResponseBody
-    public ErrorData handleValidationFailureException(HttpServletRequest request, ValidationFailureException ex) {
+    public ErrorData handleValidationFailureException(HttpServletRequest request, RequestValidationException ex) {
         log.info("handling ValidationFailureException with message: {}.", ex.getMessage());
         return buildErrorData("request validation failure.", ex.getMessage(), request);
     }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(CustomerServiceException.class)
+    @ResponseStatus(code = HttpStatus.CONFLICT)
     @ResponseBody
-    public ErrorData handleEntityNotFound(HttpServletRequest request, ResourceNotFoundException ex) {
+    public ErrorData handleEntityNotFound(HttpServletRequest request, CustomerServiceException ex) {
         log.info("handling EntityNotFoundException: {}.", ex.getMessage());
         return buildErrorData("resource not found.", ex.getMessage(), request);
     }

@@ -1,5 +1,7 @@
 package com.orders.customerservice.integration.usecase;
 
+import org.springframework.http.HttpStatus;
+
 import com.app.openapi.generated.model.Customer;
 import com.orders.customerservice.integration.IntegrationTest;
 import org.hamcrest.Matchers;
@@ -44,10 +46,10 @@ public class DeleteCustomerTests extends IntegrationTest {
 
             // then
             .expectStatus()
-                .is5xxServerError()
+                .isEqualTo(HttpStatus.CONFLICT)
             .expectBody()
                 .jsonPath("$.url").value(Matchers.containsString("/customers/" + nonExistingId))
-                .jsonPath("$.errorCode").value(Matchers.equalTo("internal server error."))
+                .jsonPath("$.errorCode").value(Matchers.equalTo("resource not found."))
                 .jsonPath("$.timestamp").isNotEmpty();
     }
 

@@ -3,6 +3,8 @@ package com.orders.customerservice.integration.usecase;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+
 import com.app.openapi.generated.model.Customer;
 import com.orders.customerservice.integration.IntegrationTest;
 import org.hamcrest.Matchers;
@@ -65,10 +67,10 @@ class ReadCustomerTests extends IntegrationTest {
 
             // then
             .expectStatus()
-                .isNotFound()
+                .isEqualTo(HttpStatus.CONFLICT)
             .expectBody()
                 .jsonPath("$.url").value(Matchers.containsString("/customers/" + nonExistingId))
-                .jsonPath("$.message").value(Matchers.containsString(nonExistingId + " not found"))
+                .jsonPath("$.message").value(Matchers.containsString("customer with id: " + nonExistingId+ " does not exist."))
                 .jsonPath("$.errorCode").value(Matchers.equalTo("resource not found."))
                 .jsonPath("$.timestamp").isNotEmpty();
     }

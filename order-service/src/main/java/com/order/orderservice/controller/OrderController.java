@@ -17,19 +17,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.order.orderservice.db.dao.model.Order;
 import com.order.orderservice.service.OrderService;
-
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author DavidJMartin
  */
 @RestController
 @RequestMapping(OrderController.ORDER_BASE_PATH)
+@Slf4j
 public class OrderController {
 
     public static final String ORDER_BASE_PATH = "/orders";
 
     @Autowired
     private OrderService orderService;
+
+    @GetMapping("/ping")
+    @ResponseStatus(HttpStatus.OK)
+    public String getPing() {
+        log.info("received ping request.");
+        return "greetings from the order-service.";
+    }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)

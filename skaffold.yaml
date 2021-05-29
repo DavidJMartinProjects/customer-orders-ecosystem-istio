@@ -6,7 +6,9 @@ build:
   local:
     concurrency: 0 #builds all artifacts in parallel
 requires:
+  - path: ./product-service
   - path: ./customer-service
+  - path: ./order-service
 deploy:
   kubectl:
     manifests:

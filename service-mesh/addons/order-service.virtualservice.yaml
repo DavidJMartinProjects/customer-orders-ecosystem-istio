@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: customer-service
+  name: order-service
 spec:
   hosts:
     - "*"
@@ -10,17 +10,9 @@ spec:
   http:
     - match:
         - uri:
-            prefix: /customers
-      route:
-        - destination:
-            host: customer-service
-            port:
-              number: 9000
-    - match:
-        - uri:
             prefix: /orders
       route:
         - destination:
             host: order-service
             port:
-              number: 9001
+              number: 9000

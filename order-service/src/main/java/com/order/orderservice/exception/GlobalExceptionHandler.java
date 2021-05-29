@@ -40,7 +40,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(OrderServiceException.class)
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ResponseStatus(code = HttpStatus.CONFLICT)
     @ResponseBody
     public ErrorData handleOrderServiceException(HttpServletRequest request, OrderServiceException ex) {
         log.info("handling OrderServiceException: {}.", ex.getMessage());

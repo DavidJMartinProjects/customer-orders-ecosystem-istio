@@ -20,4 +20,7 @@ public class OrderService {
         return dbOperation.save(customerOrder);
     }
 
+    public void deleteOrderById(Long id) {
+        dbOperation.deleteById(id);
+    }
 }

@@ -3,7 +3,9 @@ package com.order.orderservice.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,7 @@ import com.order.orderservice.service.OrderService;
 @RequestMapping(OrderController.ORDER_BASE_PATH)
 public class OrderController {
 
-    public static final String ORDER_BASE_PATH = "/order";
+    public static final String ORDER_BASE_PATH = "/orders";
 
     @Autowired
     private OrderService orderService;
@@ -36,6 +38,13 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public CustomerOrder placeOrder(@Validated @RequestBody CustomerOrder customerOrder) {
         return orderService.placeOrder(customerOrder);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrderById(id);
     }
 
 }

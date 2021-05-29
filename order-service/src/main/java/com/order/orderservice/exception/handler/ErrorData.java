@@ -1,4 +1,4 @@
-package com.order.orderservice.exception;
+package com.order.orderservice.exception.handler;
 
 import lombok.Builder;
 import lombok.Data;

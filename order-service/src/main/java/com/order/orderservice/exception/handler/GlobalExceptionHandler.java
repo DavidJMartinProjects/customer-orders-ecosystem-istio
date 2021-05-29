@@ -1,4 +1,4 @@
-package com.order.orderservice.exception;
+package com.order.orderservice.exception.handler;
 
 
 import java.time.LocalDateTime;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.order.orderservice.exception.OrderServiceException;
 import lombok.extern.slf4j.Slf4j;
 
 /**

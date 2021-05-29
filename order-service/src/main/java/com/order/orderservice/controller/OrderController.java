@@ -34,8 +34,7 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerOrder placeOrder(@Validated @RequestBody
-        CustomerOrder customerOrder) {
+    public CustomerOrder placeOrder(@Validated @RequestBody CustomerOrder customerOrder) {
         return orderService.placeOrder(customerOrder);
     }
 

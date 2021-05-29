@@ -34,4 +34,5 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name="customerOrder", nullable=false)
     private CustomerOrder customerOrder;
+
 }

@@ -3,6 +3,7 @@ package com.order.orderservice.db.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.order.orderservice.db.DbOperation;
 import com.order.orderservice.db.dao.model.CustomerOrder;
@@ -12,6 +13,7 @@ import com.order.orderservice.db.dao.repository.OrderRepository;
 /**
  * @author DavidJMartin
  */
+@Component
 public class OrderDao implements DbOperation<CustomerOrder> {
 
     @Autowired

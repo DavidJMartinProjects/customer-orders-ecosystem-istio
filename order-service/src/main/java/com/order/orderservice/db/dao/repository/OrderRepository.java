@@ -5,7 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import com.order.orderservice.db.dao.model.CustomerOrder;
 
+/**
+ * @author DavidJMartin
+ */
 @Repository
 public interface OrderRepository extends JpaRepository<CustomerOrder, Long> {
-
 }

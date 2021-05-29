@@ -1,6 +1,5 @@
 package com.order.orderservice.db.dao.model;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -31,8 +30,10 @@ public class CustomerOrder {
     private long id;
 
     private long customerId;
-    private String timestamp;
+
     private String status;
+
+    private String timestamp;
 
     @OneToMany(mappedBy="customerOrder")
     private Set<OrderItem> orderItems;

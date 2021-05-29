@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
  * @author DavidJMartin
  */
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

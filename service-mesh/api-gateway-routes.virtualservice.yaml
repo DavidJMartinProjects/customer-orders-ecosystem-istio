@@ -24,3 +24,11 @@ spec:
             host: order-service
             port:
               number: 9001
+    - match:
+        - uri:
+            prefix: /products
+      route:
+        - destination:
+            host: product-service
+            port:
+              number: 9002

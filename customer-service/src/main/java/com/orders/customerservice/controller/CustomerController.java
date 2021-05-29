@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.app.openapi.generated.api.CustomersApi;
 import com.app.openapi.generated.model.Customer;
@@ -34,6 +35,12 @@ public class CustomerController implements CustomersApi {
 
     @Autowired
     private CustomerService customerService;
+
+    @GetMapping("/ping")
+    @ResponseStatus(HttpStatus.OK)
+    public String getPing() {
+        return new RestTemplate().getForObject("http://order-service:9001/orders/ping", String.class);
+    }
 
     @Override
     @GetMapping

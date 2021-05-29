@@ -32,6 +32,6 @@ public class OrderItem {
 
 
     @ManyToOne
-    private CustomerOrder customerOrder;
+    private Order order;
 
 }

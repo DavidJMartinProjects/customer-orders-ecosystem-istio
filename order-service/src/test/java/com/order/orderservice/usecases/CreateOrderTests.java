@@ -10,7 +10,7 @@ import java.util.Set;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.order.orderservice.IntegrationTest;
-import com.order.orderservice.db.dao.model.CustomerOrder;
+import com.order.orderservice.db.dao.model.Order;
 import com.order.orderservice.db.dao.model.OrderItem;
 import net.minidev.json.JSONArray;
 import net.minidev.json.parser.JSONParser;
@@ -19,18 +19,18 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
-public class CreateCustomerOrderTests extends IntegrationTest {
+public class CreateOrderTests extends IntegrationTest {
 
     @Test
     public void given_customerOrder_when_postRequestToOrders_then_ok() throws JsonProcessingException, ParseException {
         // given
-        CustomerOrder customerOrder = buildCustomerOrder(3);
+        Order order = buildCustomerOrder(3);
 
         // when
         webTestClient
             .post()
                 .uri(ORDER_BASE_PATH)
-                .body(Mono.just(customerOrder), CustomerOrder.class)
+                .body(Mono.just(order), Order.class)
             .exchange()
 
             //then
@@ -43,7 +43,7 @@ public class CreateCustomerOrderTests extends IntegrationTest {
 
     }
 
-    private CustomerOrder buildCustomerOrder(int numOfOrderItems) {
+    private Order buildCustomerOrder(int numOfOrderItems) {
         Set<OrderItem> orderItems = new HashSet<>();
         for (int index = 0; index < numOfOrderItems; index++) {
             OrderItem orderItem =
@@ -55,7 +55,7 @@ public class CreateCustomerOrderTests extends IntegrationTest {
         }
 
         return
-            CustomerOrder.builder()
+            Order.builder()
             .customerId(1)
             .orderItems(orderItems)
             .status("order received.")

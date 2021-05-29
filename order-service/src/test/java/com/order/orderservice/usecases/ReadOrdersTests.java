@@ -2,18 +2,16 @@ package com.order.orderservice.usecases;
 
 import static com.order.orderservice.controller.OrderController.ORDER_BASE_PATH;
 
-import java.util.List;
-
 import org.springframework.http.HttpStatus;
 
 import com.order.orderservice.IntegrationTest;
-import com.order.orderservice.db.dao.model.CustomerOrder;
+import com.order.orderservice.db.dao.model.Order;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ReadCustomerOrdersTests extends IntegrationTest {
+public class ReadOrdersTests extends IntegrationTest {
 
     @BeforeEach
     public void saveTestCustomerOrders() {
@@ -29,19 +27,19 @@ public class ReadCustomerOrdersTests extends IntegrationTest {
     @Test
     void GIVEN_existingCustomerOrderId_WHEN_getRequestToCustomerOrdersById_THEN_ok() {
         // given
-        final CustomerOrder customerOrder = customerOrderFactory.findCustomerOrderById(CUSTOMER_ID_ONE);
+        final Order order = customerOrderFactory.findCustomerOrderById(CUSTOMER_ID_ONE);
 
         // when
         webTestClient
             .get()
-               .uri(ORDER_BASE_PATH + "/" + customerOrder.getId())
+               .uri(ORDER_BASE_PATH + "/" + order.getId())
             .exchange()
 
             // then
             .expectStatus()
                 .isOk()
-            .expectBody(CustomerOrder.class)
-                .isEqualTo(customerOrder);
+            .expectBody(Order.class)
+                .isEqualTo(order);
     }
 
     @Test
@@ -58,7 +56,7 @@ public class ReadCustomerOrdersTests extends IntegrationTest {
             // then
             .expectStatus()
                 .isOk()
-            .expectBodyList(CustomerOrder.class)
+            .expectBodyList(Order.class)
                 .hasSize(2);
     }
 

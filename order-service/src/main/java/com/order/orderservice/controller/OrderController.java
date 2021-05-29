@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.order.orderservice.db.dao.model.CustomerOrder;
+import com.order.orderservice.db.dao.model.Order;
 import com.order.orderservice.service.OrderService;
 
 
@@ -33,27 +33,27 @@ public class OrderController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerOrder> getAllOrders() {
+    public List<Order> getAllOrders() {
         return orderService.findAll();
     }
 
     @GetMapping
     @RequestMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerOrder getOrderById(@PathVariable long id) {
+    public Order getOrderById(@PathVariable long id) {
         return orderService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CustomerOrder placeOrder(@Validated @RequestBody CustomerOrder customerOrder) {
-        return orderService.placeOrder(customerOrder);
+    public Order placeOrder(@Validated @RequestBody Order order) {
+        return orderService.placeOrder(order);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public CustomerOrder updateOrder(@Validated @RequestBody CustomerOrder customerOrder) {
-        return orderService.updateOrder(customerOrder);
+    public Order updateOrder(@Validated @RequestBody Order order) {
+        return orderService.updateOrder(order);
     }
 
     @RequestMapping(name = "/{id}", method = RequestMethod.DELETE)
